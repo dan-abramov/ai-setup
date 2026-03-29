@@ -5,7 +5,7 @@ NC := \033[0m
 PATH := $(HOME)/.local/bin:/usr/local/bin:/opt/homebrew/bin:$(PATH)
 VERSION ?= 0.2.0
 
-NPM ?= mise exec -- npm
+NPM ?= mise exec -- env npm_config_prefix=$(HOME)/.local npm
 CLAUDE ?= mise exec -- claude
 SKILLS_NPX ?= mise exec -- npx
 SKILLS ?= $(SKILLS_NPX) skills
@@ -99,8 +99,14 @@ agents-cli:
 	@if command -v ccbox >/dev/null 2>&1; then \
 		echo "Install ccbox - already exists"; \
 	elif command -v brew >/dev/null 2>&1; then \
-		brew tap diskd-ai/ccbox && brew install ccbox; \
-		echo "Install ccbox - installed via brew"; \
+		if brew tap diskd-ai/ccbox && brew install ccbox; then \
+			echo "Install ccbox - installed via brew"; \
+		elif command -v curl >/dev/null 2>&1; then \
+			curl -fsSL -H 'Cache-Control: no-cache' -o - https://raw.githubusercontent.com/diskd-ai/ccbox/main/scripts/install.sh | /bin/bash; \
+			echo "Install ccbox - installed via script (brew failed)"; \
+		else \
+			echo "⚠️  ccbox: brew install failed and curl is unavailable"; \
+		fi; \
 	elif command -v curl >/dev/null 2>&1; then \
 		curl -fsSL -H 'Cache-Control: no-cache' -o - https://raw.githubusercontent.com/diskd-ai/ccbox/main/scripts/install.sh | /bin/bash; \
 		echo "Install ccbox - installed via script"; \
@@ -119,8 +125,8 @@ agents-skills-install: agents-skills-check-npx
 	@echo "$(BLUE)📦 Installing core skills...$(NC)"
 	@echo "  📥 Installing playwright-cli from microsoft/playwright-cli"
 	@$(SKILLS) add microsoft/playwright-cli --skill playwright-cli -g $(AGENTS_SKILLS_AGENT_FLAGS) -y
-	@echo "  📥 Installing prompt-engeneering from CodeAlive-AI/prompt-engineering-skill"
-	@$(SKILLS) add CodeAlive-AI/prompt-engineering-skill@prompt-engeneering -g -y
+	@echo "  📥 Installing prompt-engineering from CodeAlive-AI/prompt-engineering-skill"
+	@$(SKILLS) add CodeAlive-AI/prompt-engineering-skill@prompt-engineering -g -y
 	@echo "  📥 Installing ccbox from diskd-ai/ccbox"
 	@$(SKILLS) add diskd-ai/ccbox --skill ccbox -g $(AGENTS_SKILLS_AGENT_FLAGS) -y
 	@echo "  📥 Installing ccbox-insights from diskd-ai/ccbox"
@@ -129,7 +135,7 @@ agents-skills-install: agents-skills-check-npx
 agents-skills-list:
 	@echo "$(BLUE)📋 Core skills:$(NC)"
 	@printf "  playwright-cli (microsoft/playwright-cli)\n"
-	@printf "  prompt-engeneering (CodeAlive-AI/prompt-engineering-skill)\n"
+	@printf "  prompt-engineering (CodeAlive-AI/prompt-engineering-skill)\n"
 	@printf "  ccbox (diskd-ai/ccbox)\n"
 	@printf "  ccbox-insights (diskd-ai/ccbox)\n"
 
