@@ -1,16 +1,17 @@
-See PROJECT.md for project description.
+Смотри PROJECT.md с описанием проекта.
 
-## Stack
+## Стек:
 Ruby on Rails 7, RSpec, FactoryBot, PostgreSQL
 
-## Key commands
-- `bin/rails s` — run server
-- `bundle exec rspec` — run tests
+## Ключевые команды:
+- `rails new ` — создать новый проект
+- `bin/rails s` — запустить сервер
+- `bundle exec rspec` — запустить тесты
 
-## Conventions
+## Конвенции:
 - Паттерн MVC
 - Паттерн service objects
 
-## Constraints
+## Ограничения:
 - Не устанавливать новые гемы без согласования
-- Пользовательский код должен проверяться на безопасность
+- Пользовательский ввод кода должен проверяться на безопасность
