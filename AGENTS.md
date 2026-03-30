@@ -1,7 +1,7 @@
 See PROJECT.md for project description.
 
 ## Stack
-Ruby on Rails 7, RSpec, FactoryBot
+Ruby on Rails 7, RSpec, FactoryBot, PostgreSQL
 
 ## Key commands
 - `bin/rails s` — run server
@@ -9,6 +9,7 @@ Ruby on Rails 7, RSpec, FactoryBot
 
 ## Conventions
 - Паттерн MVC
+- Паттерн service objects
 
 ## Constraints
 - Не устанавливать новые гемы без согласования
