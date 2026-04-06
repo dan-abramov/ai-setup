@@ -1,24 +1,51 @@
-# README
+# Task Generator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails 7.1 приложение для генерации задач.
 
-Things you may want to cover:
+## Пользовательский сценарий
 
-* Ruby version
+1. Пользователь открывает форму `/generation_requests/new`.
+2. Вводит `Навык` и `Тема`.
+3. При успешной отправке происходит переход на `/generation_flow` с переданными `skill` и `topic`.
+4. При ошибках валидации переход блокируется, а под полями отображаются коды ошибок.
 
-* System dependencies
+## Ограничения ввода
 
-* Configuration
+- Оба поля обязательны.
+- Поля очищаются от HTML-тегов и обрезаются по краям (`trim`).
+- Длина каждого поля: от 1 до 100 символов.
+- Формат должен соответствовать Unicode-варианту проверки `^(?![^\p{Word}]*$).{1,100}$`.
 
-* Database creation
+## Коды ошибок
 
-* Database initialization
+- `E001`: пустой `skill`
+- `E002`: `skill` длиннее 100 символов
+- `E003`: `skill` не проходит формат
+- `E004`: пустой `topic`
+- `E005`: `topic` длиннее 100 символов
+- `E006`: `topic` не проходит формат
+- `E007`: внутренняя ошибка на уровне service object
 
-* How to run the test suite
+## Требования
 
-* Services (job queues, cache servers, search engines, etc.)
+- Ruby 3.4.8
+- PostgreSQL
+- Bundler
 
-* Deployment instructions
+## Запуск
 
-* ...
+```bash
+bundle install
+bin/rails db:prepare
+bin/rails s
+```
+
+## Тесты
+
+Проект использует `RSpec + FactoryBot`.
+
+```bash
+bundle exec rspec
+```
+
+Фабрики размещаются в `spec/factories`.

@@ -1,0 +1,51 @@
+<div class="generation-page">
+  <h1><%= t("generation_requests.new.title") %></h1>
+
+  <% if @server_error_code.present? %>
+    <div class="form-alert" role="alert">
+      <%= t("generation_requests.new.server_error") %> (<%= @server_error_code %>)
+    </div>
+  <% end %>
+
+  <%= form_with model: @generation_request,
+                url: generation_requests_path,
+                data: {
+                  controller: "generation-request-form",
+                  action: "submit->generation-request-form#submit",
+                  loading_text: t("generation_requests.new.loading")
+                } do |form| %>
+    <div class="form-field">
+      <%= form.label :skill, t("generation_requests.new.skill") %>
+      <%= form.text_field :skill,
+                          required: true,
+                          maxlength: GenerationRequest::MAX_LENGTH,
+                          data: {
+                            generation_request_form_target: "skillInput",
+                            action: "input->generation-request-form#onInput"
+                          } %>
+      <p class="field-error" data-generation-request-form-target="skillError">
+        <%= @generation_request.error_codes_for(:skill).join(", ") %>
+      </p>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :topic, t("generation_requests.new.topic") %>
+      <%= form.text_field :topic,
+                          required: true,
+                          maxlength: GenerationRequest::MAX_LENGTH,
+                          data: {
+                            generation_request_form_target: "topicInput",
+                            action: "input->generation-request-form#onInput"
+                          } %>
+      <p class="field-error" data-generation-request-form-target="topicError">
+        <%= @generation_request.error_codes_for(:topic).join(", ") %>
+      </p>
+    </div>
+
+    <%= form.button type: :submit,
+                    class: "submit-button",
+                    data: { generation_request_form_target: "submitButton" } do %>
+      <span data-generation-request-form-target="submitLabel"><%= t("generation_requests.new.submit") %></span>
+    <% end %>
+  <% end %>
+</div>

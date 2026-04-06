@@ -1,0 +1,23 @@
+ru:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Проверка не пройдена: %{errors}"
+    attributes:
+      generation_request:
+        skill: "Навык"
+        topic: "Тема"
+  generation_requests:
+    new:
+      title: "Генерация задачи"
+      skill: "Навык"
+      topic: "Тема"
+      submit: "Сгенерировать задачу"
+      loading: "Генерация..."
+      server_error: "Внутренняя ошибка сервера"
+  generation_flow:
+    show:
+      title: "Следующий шаг"
+      skill: "Навык"
+      topic: "Тема"
+      back: "Вернуться к форме"
