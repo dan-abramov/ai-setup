@@ -2,18 +2,15 @@ class GenerationRequest < ApplicationRecord
   include ActionView::Helpers::SanitizeHelper
 
   MAX_LENGTH = 100
-  CONTENT_FORMAT = /\A(?![^\p{Word}]*\z).{1,100}\z/u
+  STATUS_EMPTY = "EMPTY"
+  STATUS_LOADING = "LOADING"
+  STATUS_SUCCESS = "SUCCESS"
+  STATUS_ERROR = "ERROR"
+
   ERROR_CODES = {
-    skill: {
-      blank: "E001",
-      too_long: "E002",
-      invalid: "E003"
-    },
-    topic: {
-      blank: "E004",
-      too_long: "E005",
-      invalid: "E006"
-    }
+    skill_blank: "E201",
+    topic_blank: "E202",
+    invalid_length: "E203"
   }.freeze
 
   before_validation :normalize_fields
@@ -23,6 +20,14 @@ class GenerationRequest < ApplicationRecord
 
   def error_codes_for(attribute)
     errors.messages_for(attribute).uniq
+  end
+
+  def input_error_codes
+    [ :skill, :topic ].flat_map { |attribute| error_codes_for(attribute) }.uniq
+  end
+
+  def first_input_error_code
+    input_error_codes.first
   end
 
   private
@@ -37,26 +42,21 @@ class GenerationRequest < ApplicationRecord
   end
 
   def validate_skill
-    validate_attribute(:skill, ERROR_CODES[:skill])
+    validate_presence_and_length(:skill, blank_code: ERROR_CODES[:skill_blank])
   end
 
   def validate_topic
-    validate_attribute(:topic, ERROR_CODES[:topic])
+    validate_presence_and_length(:topic, blank_code: ERROR_CODES[:topic_blank])
   end
 
-  def validate_attribute(attribute, codes)
+  def validate_presence_and_length(attribute, blank_code:)
     value = public_send(attribute)
 
     if value.blank?
-      errors.add(attribute, codes[:blank])
+      errors.add(attribute, blank_code)
       return
     end
 
-    if value.length > MAX_LENGTH
-      errors.add(attribute, codes[:too_long])
-      return
-    end
-
-    errors.add(attribute, codes[:invalid]) unless CONTENT_FORMAT.match?(value)
+    errors.add(attribute, ERROR_CODES[:invalid_length]) if value.length > MAX_LENGTH
   end
 end
