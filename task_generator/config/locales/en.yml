@@ -1,31 +1,50 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      generation_request:
+        skill: "Skill"
+        topic: "Topic"
+      task:
+        description: "Description"
+  generation_requests:
+    new:
+      title: "Task Description Generation"
+      subtitle: "Enter skill and topic. The app will generate a short task description before the solution step."
+      skill: "Skill"
+      topic: "Topic"
+      submit: "Generate"
+      retry: "Retry"
+      go_to_solution: "Go to solution"
+    states:
+      empty: "State: EMPTY"
+      loading: "State: LOADING"
+      success: "State: SUCCESS"
+      error: "State: ERROR"
+    errors:
+      codes:
+        E201: "Specify skill"
+        E202: "Specify topic"
+        E203: "Invalid skill/topic length"
+        E204: "Task description generation timed out"
+        E205: "Task description generation error. Check OPENROUTER_API_KEY"
+        E206: "Task description is empty"
+        E207: "Task description exceeds 150 characters"
+        E208: "Task description does not include topic"
+        E209: "Task description must include skill and phrase 'Реши через'"
+        E301: "Failed to create task"
+  generation_flow:
+    show:
+      title: "Solution Transition"
+      skill: "Skill"
+      topic: "Topic"
+      back: "Back to form"
+      unavailable: "Solution transition is available only after successful generation."
+  tasks:
+    show:
+      title: "Generated Task"
+    errors:
+      title: "Task Reopen Error"
+      back: "Back to form"
+      codes:
+        E302: "Task not found"
+        E303: "Task is unavailable for reopening"

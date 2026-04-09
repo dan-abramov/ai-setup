@@ -1,0 +1,9 @@
+<div class="generation-page">
+  <h1><%= t("generation_flow.show.title") %></h1>
+
+  <p class="description-text"><%= @generation_request.task_description %></p>
+  <p><%= t("generation_flow.show.skill") %>: <strong><%= @generation_request.skill %></strong></p>
+  <p><%= t("generation_flow.show.topic") %>: <strong><%= @generation_request.topic %></strong></p>
+
+  <p><%= link_to t("generation_flow.show.back"), new_generation_request_path %></p>
+</div>

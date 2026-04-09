@@ -1,0 +1,67 @@
+<% state_labels = {
+  GenerationRequest::STATUS_EMPTY => t("generation_requests.states.empty"),
+  GenerationRequest::STATUS_LOADING => t("generation_requests.states.loading"),
+  GenerationRequest::STATUS_SUCCESS => t("generation_requests.states.success"),
+  GenerationRequest::STATUS_ERROR => t("generation_requests.states.error")
+} %>
+
+<div class="generation-page"
+     data-controller="generation-request-form"
+     data-generation-request-form-state-labels-value="<%= state_labels.to_json %>"
+     data-generation-request-form-error-messages-value="<%= t("generation_requests.errors.codes").to_json %>"
+     data-generation-request-form-loading-text-value="<%= t("generation_requests.states.loading") %>">
+  <h1><%= t("generation_requests.new.title") %></h1>
+  <p class="form-subtitle"><%= t("generation_requests.new.subtitle") %></p>
+
+  <% if flash[:alert].present? %>
+    <p class="form-alert" role="alert"><%= flash[:alert] %></p>
+  <% end %>
+
+  <%= form_with model: @generation_request,
+                url: generation_requests_path,
+                data: {
+                  generation_request_form_target: "form",
+                  action: "submit->generation-request-form#submit"
+                } do |form| %>
+    <div class="form-field">
+      <%= form.label :skill, t("generation_requests.new.skill") %>
+      <%= form.text_field :skill,
+                          required: true,
+                          maxlength: GenerationRequest::MAX_LENGTH,
+                          data: {
+                            generation_request_form_target: "skillInput",
+                            action: "input->generation-request-form#onInput"
+                          } %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :topic, t("generation_requests.new.topic") %>
+      <%= form.text_field :topic,
+                          required: true,
+                          maxlength: GenerationRequest::MAX_LENGTH,
+                          data: {
+                            generation_request_form_target: "topicInput",
+                            action: "input->generation-request-form#onInput"
+                          } %>
+    </div>
+
+    <div class="button-row">
+      <%= form.button t("generation_requests.new.submit"),
+                      type: :submit,
+                      class: "submit-button",
+                      data: { generation_request_form_target: "submitButton" } %>
+
+      <button type="button"
+              class="secondary-button hidden"
+              data-action="generation-request-form#retry"
+              data-generation-request-form-target="retryButton">
+        <%= t("generation_requests.new.retry") %>
+      </button>
+    </div>
+  <% end %>
+
+  <section class="result-panel">
+    <p class="state-badge" data-generation-request-form-target="stateLabel"><%= t("generation_requests.states.empty") %></p>
+    <p class="error-text hidden" data-generation-request-form-target="errorMessage"></p>
+  </section>
+</div>
