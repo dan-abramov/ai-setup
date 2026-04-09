@@ -29,16 +29,16 @@ RSpec.describe "GenerationFlow", type: :request do
   describe "GET /generation_flow/metrics" do
     before do
       create_list(
-        190,
         :generation_request,
+        190,
         status: GenerationRequest::STATUS_SUCCESS,
         latency_ms: 500,
         error_code: nil
       )
 
       create_list(
-        10,
         :generation_request,
+        10,
         :error,
         latency_ms: 1200,
         error_code: "E205"

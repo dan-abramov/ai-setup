@@ -39,10 +39,17 @@ module Generation
       ai_result = ai_client.call(skill: generation_request.skill, topic: generation_request.topic)
       return fail_generation(ai_result.error_code) unless ai_result.success?
 
+      validation_result = Generation::DescriptionValidator.call(
+        task_description: ai_result.task_description,
+        skill: generation_request.skill,
+        topic: generation_request.topic
+      )
+      return fail_generation(validation_result.error_code) unless validation_result.success?
+
       generation_request.update!(
         status: GenerationRequest::STATUS_SUCCESS,
         error_code: nil,
-        task_description: ai_result.task_description,
+        task_description: validation_result.task_description,
         latency_ms: elapsed_ms
       )
 

@@ -9,8 +9,7 @@
      data-controller="generation-request-form"
      data-generation-request-form-state-labels-value="<%= state_labels.to_json %>"
      data-generation-request-form-error-messages-value="<%= t("generation_requests.errors.codes").to_json %>"
-     data-generation-request-form-loading-text-value="<%= t("generation_requests.states.loading") %>"
-     data-generation-request-form-flow-path-template-value="<%= generation_flow_path(id: 0) %>">
+     data-generation-request-form-loading-text-value="<%= t("generation_requests.states.loading") %>">
   <h1><%= t("generation_requests.new.title") %></h1>
   <p class="form-subtitle"><%= t("generation_requests.new.subtitle") %></p>
 
@@ -58,18 +57,11 @@
               data-generation-request-form-target="retryButton">
         <%= t("generation_requests.new.retry") %>
       </button>
-
-      <a href="#"
-         class="flow-link hidden"
-         data-generation-request-form-target="flowLink">
-        <%= t("generation_requests.new.go_to_solution") %>
-      </a>
     </div>
   <% end %>
 
   <section class="result-panel">
     <p class="state-badge" data-generation-request-form-target="stateLabel"><%= t("generation_requests.states.empty") %></p>
     <p class="error-text hidden" data-generation-request-form-target="errorMessage"></p>
-    <p class="description-text hidden" data-generation-request-form-target="description"></p>
   </section>
 </div>

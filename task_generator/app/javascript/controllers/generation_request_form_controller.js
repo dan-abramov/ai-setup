@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 const MAX_LENGTH = 100
-const RETRYABLE_ERROR_CODES = new Set(["E204", "E205", "E206", "E207", "E208", "E209"])
+const RETRYABLE_ERROR_CODES = new Set(["E204", "E205", "E206", "E207", "E208", "E209", "E301"])
 
 export default class extends Controller {
   static targets = [
@@ -11,16 +11,13 @@ export default class extends Controller {
     "submitButton",
     "stateLabel",
     "errorMessage",
-    "description",
-    "retryButton",
-    "flowLink"
+    "retryButton"
   ]
 
   static values = {
     stateLabels: Object,
     errorMessages: Object,
-    loadingText: String,
-    flowPathTemplate: String
+    loadingText: String
   }
 
   connect() {
@@ -30,9 +27,7 @@ export default class extends Controller {
     this.submittedOnce = false
     this.setState("EMPTY")
     this.hide(this.errorMessageTarget)
-    this.hide(this.descriptionTarget)
     this.hide(this.retryButtonTarget)
-    this.hide(this.flowLinkTarget)
   }
 
   onInput() {
@@ -83,8 +78,6 @@ export default class extends Controller {
   async performSubmit() {
     this.setState("LOADING")
     this.hide(this.errorMessageTarget)
-    this.hide(this.descriptionTarget)
-    this.hide(this.flowLinkTarget)
     this.hide(this.retryButtonTarget)
 
     try {
@@ -113,25 +106,19 @@ export default class extends Controller {
   }
 
   renderSuccess(payload) {
-    const requestId = payload.generation_request_id
-    const description = String(payload.task_description || "").trim()
+    const taskId = payload.task_id
+    const taskPath = String(payload.task_path || "").trim()
 
-    if (!requestId || description === "") {
+    if (!taskId || taskPath === "") {
       this.renderError("E205")
       return
     }
 
     this.lastErrorCode = null
     this.setState("SUCCESS")
-
-    this.descriptionTarget.textContent = description
-    this.show(this.descriptionTarget)
-
     this.hide(this.errorMessageTarget)
     this.hide(this.retryButtonTarget)
-
-    this.flowLinkTarget.href = this.buildFlowPath(requestId)
-    this.show(this.flowLinkTarget)
+    window.location.assign(taskPath)
   }
 
   renderError(errorCode) {
@@ -142,8 +129,6 @@ export default class extends Controller {
     this.errorMessageTarget.textContent = `${message} (${errorCode})`
 
     this.show(this.errorMessageTarget)
-    this.hide(this.descriptionTarget)
-    this.hide(this.flowLinkTarget)
 
     if (this.retryableError(errorCode)) {
       this.show(this.retryButtonTarget)
@@ -156,9 +141,7 @@ export default class extends Controller {
     this.lastErrorCode = null
     this.setState("EMPTY")
     this.hide(this.errorMessageTarget)
-    this.hide(this.descriptionTarget)
     this.hide(this.retryButtonTarget)
-    this.hide(this.flowLinkTarget)
   }
 
   setState(nextState) {
@@ -204,10 +187,6 @@ export default class extends Controller {
 
   stripTags(value) {
     return value.replace(/<[^>]*>/g, "")
-  }
-
-  buildFlowPath(generationRequestId) {
-    return this.flowPathTemplateValue.replace(/\/0$/, `/${generationRequestId}`)
   }
 
   parseJson(response) {
