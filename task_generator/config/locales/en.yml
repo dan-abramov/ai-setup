@@ -4,6 +4,8 @@ en:
       generation_request:
         skill: "Skill"
         topic: "Topic"
+      task:
+        description: "Description"
   generation_requests:
     new:
       title: "Task Description Generation"
@@ -29,6 +31,7 @@ en:
         E207: "Task description exceeds 150 characters"
         E208: "Task description does not include topic"
         E209: "Task description must include skill and phrase 'Реши через'"
+        E301: "Failed to create task"
   generation_flow:
     show:
       title: "Solution Transition"
@@ -36,3 +39,12 @@ en:
       topic: "Topic"
       back: "Back to form"
       unavailable: "Solution transition is available only after successful generation."
+  tasks:
+    show:
+      title: "Generated Task"
+    errors:
+      title: "Task Reopen Error"
+      back: "Back to form"
+      codes:
+        E302: "Task not found"
+        E303: "Task is unavailable for reopening"

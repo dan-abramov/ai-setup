@@ -1,0 +1,10 @@
+<div class="generation-page">
+  <% if @error_code.present? %>
+    <h1><%= t("tasks.errors.title") %></h1>
+    <p class="error-text"><%= t("tasks.errors.codes.#{@error_code}") %> (<%= @error_code %>)</p>
+    <p><%= link_to t("tasks.errors.back"), new_generation_request_path %></p>
+  <% else %>
+    <h1><%= t("tasks.show.title") %></h1>
+    <p class="description-text"><%= @task.description %></p>
+  <% end %>
+</div>

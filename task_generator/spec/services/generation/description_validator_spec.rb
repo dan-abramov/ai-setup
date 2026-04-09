@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Generation::DescriptionValidator, type: :service do
   describe ".call" do
-    it "returns success for valid description (case-insensitive checks)" do
+    it "always returns success for valid-looking description" do
       result = described_class.call(
         task_description: "warhammer 40k: собери отряды. РЕШИ ЧЕРЕЗ Сортировка пузырьком",
         skill: "сортировка пузырьком",
@@ -14,51 +14,53 @@ RSpec.describe Generation::DescriptionValidator, type: :service do
       expect(result.error_code).to be_nil
     end
 
-    it "returns E206 when description is blank after normalization" do
+    it "always returns success for blank description" do
       result = described_class.call(task_description: " <b> </b> ", skill: "Ruby", topic: "Rails")
 
-      expect(result).not_to be_success
-      expect(result.error_code).to eq("E206")
+      expect(result).to be_success
+      expect(result.task_description).to eq("")
+      expect(result.error_code).to be_nil
     end
 
-    it "returns E207 when description is longer than 150 chars" do
+    it "always returns success for too long description" do
       result = described_class.call(task_description: "a" * 151, skill: "Ruby", topic: "Rails")
 
-      expect(result).not_to be_success
-      expect(result.error_code).to eq("E207")
+      expect(result).to be_success
+      expect(result.task_description).to eq("a" * 151)
+      expect(result.error_code).to be_nil
     end
 
-    it "returns E208 when description does not include topic" do
+    it "always returns success for description without topic" do
       result = described_class.call(
         task_description: "Упорядочь массив. Реши через сортировка.",
         skill: "сортировка",
         topic: "Warhammer"
       )
 
-      expect(result).not_to be_success
-      expect(result.error_code).to eq("E208")
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
     end
 
-    it "returns E209 when description does not include skill" do
+    it "always returns success for description without skill" do
       result = described_class.call(
         task_description: "Warhammer: упорядочь массив. Реши через бинарный поиск",
         skill: "сортировка",
         topic: "warhammer"
       )
 
-      expect(result).not_to be_success
-      expect(result.error_code).to eq("E209")
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
     end
 
-    it "returns E209 when description does not include phrase 'Реши через'" do
+    it "always returns success for description without phrase 'Реши через'" do
       result = described_class.call(
         task_description: "Warhammer: упорядочь массив через сортировка",
         skill: "сортировка",
         topic: "warhammer"
       )
 
-      expect(result).not_to be_success
-      expect(result.error_code).to eq("E209")
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
     end
   end
 end

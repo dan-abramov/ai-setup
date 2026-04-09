@@ -9,8 +9,8 @@ class GenerationRequestsController < ApplicationController
     if result.success?
       render json: {
         state: GenerationRequest::STATUS_SUCCESS,
-        generation_request_id: result.generation_request.id,
-        task_description: result.task_description
+        task_id: result.task.id,
+        task_path: task_path(result.task)
       }
       return
     end
@@ -20,7 +20,7 @@ class GenerationRequestsController < ApplicationController
       error_code: result.error_code
     }
 
-    if result.generation_request.present?
+    if result.generation_request&.persisted?
       payload[:generation_request_id] = result.generation_request.id
     end
 

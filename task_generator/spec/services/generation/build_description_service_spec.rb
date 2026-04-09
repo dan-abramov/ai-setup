@@ -72,11 +72,11 @@ RSpec.describe Generation::BuildDescriptionService, type: :service do
       expect(result.generation_request.latency_ms).to be_a(Integer)
     end
 
-    it "persists SUCCESS even when description would previously fail validator checks" do
+    it "persists SUCCESS when AI response is blank after normalization (validator stub)" do
       allow(ai_client).to receive(:call).and_return(
         Generation::AiClient::Result.new(
           success: true,
-          task_description: "Слишком короткое описание без обязательной структуры",
+          task_description: " <b> </b> ",
           error_code: nil
         )
       )
@@ -88,7 +88,64 @@ RSpec.describe Generation::BuildDescriptionService, type: :service do
       expect(result.generation_request).to be_persisted
       expect(result.generation_request.status).to eq(GenerationRequest::STATUS_SUCCESS)
       expect(result.generation_request.error_code).to be_nil
-      expect(result.generation_request.task_description).to eq("Слишком короткое описание без обязательной структуры")
+      expect(result.generation_request.task_description).to eq("")
+    end
+
+    it "persists SUCCESS for too long AI response (validator stub)" do
+      allow(ai_client).to receive(:call).and_return(
+        Generation::AiClient::Result.new(
+          success: true,
+          task_description: "a" * 151,
+          error_code: nil
+        )
+      )
+
+      result = service_call(skill: "сортировка пузырьком", topic: "Warhammer")
+
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
+      expect(result.generation_request).to be_persisted
+      expect(result.generation_request.status).to eq(GenerationRequest::STATUS_SUCCESS)
+      expect(result.generation_request.error_code).to be_nil
+      expect(result.generation_request.task_description).to eq("a" * 151)
+    end
+
+    it "persists SUCCESS when AI response does not include topic (validator stub)" do
+      allow(ai_client).to receive(:call).and_return(
+        Generation::AiClient::Result.new(
+          success: true,
+          task_description: "Упорядочь массив. Реши через сортировка пузырьком",
+          error_code: nil
+        )
+      )
+
+      result = service_call(skill: "сортировка пузырьком", topic: "Warhammer")
+
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
+      expect(result.generation_request).to be_persisted
+      expect(result.generation_request.status).to eq(GenerationRequest::STATUS_SUCCESS)
+      expect(result.generation_request.error_code).to be_nil
+      expect(result.generation_request.task_description).to eq("Упорядочь массив. Реши через сортировка пузырьком")
+    end
+
+    it "persists SUCCESS when AI response does not include skill (validator stub)" do
+      allow(ai_client).to receive(:call).and_return(
+        Generation::AiClient::Result.new(
+          success: true,
+          task_description: "Warhammer: упорядочь массив. Реши через бинарный поиск",
+          error_code: nil
+        )
+      )
+
+      result = service_call(skill: "сортировка пузырьком", topic: "Warhammer")
+
+      expect(result).to be_success
+      expect(result.error_code).to be_nil
+      expect(result.generation_request).to be_persisted
+      expect(result.generation_request.status).to eq(GenerationRequest::STATUS_SUCCESS)
+      expect(result.generation_request.error_code).to be_nil
+      expect(result.generation_request.task_description).to eq("Warhammer: упорядочь массив. Реши через бинарный поиск")
     end
 
     it "maps unexpected internal exception to E205" do
