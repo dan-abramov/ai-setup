@@ -14,6 +14,8 @@ audience: humans_and_agents
 
 Каталог `memory-bank/features/` хранит instantiated feature packages вида `FT-XXX/`.
 
+Upstream product scope для текущих package-ов фиксируется в [`../prd/PRD-001-task-generator-mvp.md`](../prd/PRD-001-task-generator-mvp.md).
+
 ## Rules
 
 - Каждый package создается по правилам из [`../flows/feature-flow.md`](../flows/feature-flow.md).

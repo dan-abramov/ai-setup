@@ -5,6 +5,7 @@ doc_function: canonical
 purpose: "Canonical-документ фичи генерации `task_description` по `skill/topic` с контрактом ошибок и переходом к решению."
 derived_from:
   - ../../domain/problem.md
+  - ../../prd/PRD-001-task-generator-mvp.md
 status: done
 delivery_status: archived
 audience: humans_and_agents

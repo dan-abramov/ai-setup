@@ -5,6 +5,7 @@ doc_function: canonical
 purpose: "Canonical-документ фичи обязательного ввода `skill/topic` перед запуском генерации задачи."
 derived_from:
   - ../../domain/problem.md
+  - ../../prd/PRD-001-task-generator-mvp.md
 status: done
 delivery_status: archived
 audience: humans_and_agents
