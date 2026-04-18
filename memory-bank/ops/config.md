@@ -43,7 +43,7 @@ task_generator/config/
 1. `config/initializers/generation.rb` владеет схемой `OPENROUTER_*` и `config.x.generation`.
 2. Defaults для OpenRouter задаются там же:
    - `OPENROUTER_API_URL` default: `https://openrouter.ai/api/v1/chat/completions`
-   - `OPENROUTER_TIMEOUT_SECONDS` default: `1`
+   - `OPENROUTER_TIMEOUT_SECONDS` default: `15`
 3. Environment-specific overrides задаются через обычные env vars и `config/environments/*.rb`.
 4. Секреты документируются только по именам переменных, без значений.
 
@@ -82,7 +82,7 @@ Rules:
 | --- | --- | --- | --- |
 | `OPENROUTER_API_KEY` | Ключ доступа к OpenRouter | none (обязателен для живой генерации) | developer/platform |
 | `OPENROUTER_API_URL` | Endpoint chat completions | `https://openrouter.ai/api/v1/chat/completions` | developer/platform |
-| `OPENROUTER_TIMEOUT_SECONDS` | Таймаут HTTP-запроса к AI | `1` | developer/platform |
+| `OPENROUTER_TIMEOUT_SECONDS` | Таймаут HTTP-запроса к AI | `15` | developer/platform |
 | `RAILS_MAX_THREADS` | Размер thread pool ActiveRecord | `5` | platform |
 | `DATABASE_URL` | Полный URL подключения к БД (override) | none | platform |
 | `TASK_GENERATOR_DATABASE_PASSWORD` | Пароль prod-роли в `database.yml` | none | platform |

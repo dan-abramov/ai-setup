@@ -34,10 +34,7 @@ module Generation
       models.each_with_index do |model, index|
         result = call_model(model)
         return result if result.success?
-        return result if result.error_code == ERROR_TIMEOUT
-
         next if index.zero?
-
         return result
       end
 

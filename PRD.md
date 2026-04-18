@@ -68,6 +68,7 @@
 | `FT-002` | Генерация `task_description` и error contract `E201-E209` | done |
 | `FT-003` | Создание `Task` и reopen по `/task/:id` | done |
 | `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
+| `FT-011` | Добавить input для ввода кода-решения на странице `/task/:id` | planned |
 
 ## Canonical Links
 

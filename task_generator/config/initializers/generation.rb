@@ -1,4 +1,6 @@
 Rails.application.configure do
+  default_timeout_seconds = 15
+
   env_files = [
     Rails.root.join("..", ".env"),
     Rails.root.join("..", ".env.local"),
@@ -36,8 +38,8 @@ Rails.application.configure do
   )
   generation_config.openrouter_api_key = ENV.fetch("OPENROUTER_API_KEY", "").to_s
 
-  timeout_value = Integer(ENV.fetch("OPENROUTER_TIMEOUT_SECONDS", "1"), exception: false)
-  generation_config.openrouter_timeout_seconds = timeout_value&.positive? ? timeout_value : 1
+  timeout_value = Integer(ENV.fetch("OPENROUTER_TIMEOUT_SECONDS", default_timeout_seconds.to_s), exception: false)
+  generation_config.openrouter_timeout_seconds = timeout_value&.positive? ? timeout_value : default_timeout_seconds
 
   generation_config.openrouter_primary_model = "arcee-ai/trinity-mini:free"
   generation_config.openrouter_fallback_model = "nvidia/nemotron-nano-9b-v2:free"

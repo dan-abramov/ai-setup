@@ -9,6 +9,8 @@ RSpec.describe "Tasks", type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("Warhammer 40K: выстрой строй. Реши через сортировка")
+      expect(response.body).to include("Код решения")
+      expect(response.body).to include("name=\"solution_code\"")
     end
 
     it "returns E302 for missing task id (AC-05)" do

@@ -6,5 +6,19 @@
   <% else %>
     <h1><%= t("tasks.show.title") %></h1>
     <p class="description-text"><%= @task.description %></p>
+    <div class="solution-code-block">
+      <label class="solution-code-label" for="solution_code_input"><%= t("tasks.show.solution_code_label") %></label>
+      <p class="solution-code-hint"><%= t("tasks.show.solution_code_hint") %></p>
+      <%= text_area_tag(
+        :solution_code,
+        nil,
+        id: "solution_code_input",
+        class: "solution-code-input",
+        rows: 12,
+        spellcheck: false,
+        autocomplete: "off",
+        autocapitalize: "off"
+      ) %>
+    </div>
   <% end %>
 </div>

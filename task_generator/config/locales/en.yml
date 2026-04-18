@@ -42,6 +42,8 @@ en:
   tasks:
     show:
       title: "Generated Task"
+      solution_code_label: "Solution Code"
+      solution_code_hint: "Code entered here is not validated or saved yet."
     errors:
       title: "Task Reopen Error"
       back: "Back to form"

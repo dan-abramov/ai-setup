@@ -84,3 +84,4 @@ must_not_define:
 | `FT-002` | Генерация `task_description` и контракт ошибок | done |
 | `FT-003` | Создание `Task` и reopen-flow | done |
 | `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
+| `FT-011` | Добавить input для ввода кода-решения на странице `/task/:id` | planned |
