@@ -39,3 +39,6 @@ Upstream product scope для текущих package-ов фиксируется
 
 - [`FT-003/`](FT-003/README.md)
   Повторное открытие задачи через `GET /task/:id` и контракт ошибок `E301-E303`.
+
+- [`FT-010/`](FT-010/README.md)
+  Удаление визуального статуса generation request во view-слое с сохранением submit/retry контрактов.

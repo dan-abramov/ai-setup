@@ -67,6 +67,7 @@
 | `FT-001` | Обязательный ввод `skill/topic` и нормализация данных | done |
 | `FT-002` | Генерация `task_description` и error contract `E201-E209` | done |
 | `FT-003` | Создание `Task` и reopen по `/task/:id` | done |
+| `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
 
 ## Canonical Links
 

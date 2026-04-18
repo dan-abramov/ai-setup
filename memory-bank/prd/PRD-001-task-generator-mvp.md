@@ -83,3 +83,4 @@ must_not_define:
 | `FT-001` | Ввод и валидация `skill/topic` | done |
 | `FT-002` | Генерация `task_description` и контракт ошибок | done |
 | `FT-003` | Создание `Task` и reopen-flow | done |
+| `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
