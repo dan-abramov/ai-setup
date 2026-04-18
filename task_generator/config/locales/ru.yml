@@ -16,13 +16,9 @@ ru:
       skill: "Навык"
       topic: "Тема"
       submit: "Сгенерировать"
+      loading: "Генерируем..."
       retry: "Повторить"
       go_to_solution: "Перейти к решению"
-    states:
-      empty: "Состояние: EMPTY"
-      loading: "Состояние: LOADING"
-      success: "Состояние: SUCCESS"
-      error: "Состояние: ERROR"
     errors:
       codes:
         E201: "Укажите навык"

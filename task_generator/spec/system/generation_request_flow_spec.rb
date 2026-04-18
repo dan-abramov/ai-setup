@@ -5,10 +5,11 @@ RSpec.describe "GenerationRequestFlow", type: :system do
     driven_by(:rack_test)
   end
 
-  it "renders EMPTY state and hidden retry control on first load" do
+  it "renders form without visible generation state and with hidden retry control on first load" do
     visit new_generation_request_path
 
-    expect(page).to have_content("Состояние: EMPTY")
+    expect(page).not_to have_css(".state-badge")
+    expect(page).not_to have_content("Состояние:")
     expect(page).to have_button("Сгенерировать")
     expect(page).to have_css("button.hidden", text: "Повторить")
   end
