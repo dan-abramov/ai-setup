@@ -7,7 +7,7 @@ derived_from:
   - ../../domain/problem.md
   - ../../prd/PRD-001-task-generator-mvp.md
 status: active
-delivery_status: planned
+delivery_status: done
 audience: humans_and_agents
 must_not_define:
   - implementation_sequence
@@ -164,4 +164,3 @@ must_not_define:
 | `EVID-01`   | RSpec output (system)    | verify-runner         | `artifacts/ft-010/verify/chk-01/` | `CHK-01`         |
 | `EVID-02`   | RSpec output (requests)  | verify-runner         | `artifacts/ft-010/verify/chk-02/` | `CHK-02`         |
 | `EVID-03`   | Smoke notes + screenshot | verify-runner / human | `artifacts/ft-010/verify/chk-03/` | `CHK-03`         |
-

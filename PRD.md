@@ -67,9 +67,9 @@
 | `FT-001` | Обязательный ввод `skill/topic` и нормализация данных | done |
 | `FT-002` | Генерация `task_description` и error contract `E201-E209` | done |
 | `FT-003` | Создание `Task` и reopen по `/task/:id` | done |
-| `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
-| `FT-011` | Добавить input для ввода кода-решения на странице `/task/:id` | planned |
-| `FT-012` | Сохранять код-решение, введенный пользователем, на странице `/task/:id` | planned |
+| `FT-010` | Убрать визуальный статус generation request на пользовательских view | done |
+| `FT-011` | Добавить input для ввода кода-решения на странице `/task/:id` | done |
+| `FT-012` | Сохранять код-решение, введенный пользователем, на странице `/task/:id` | done |
 
 ## Canonical Links
 
