@@ -51,14 +51,36 @@ RSpec.describe Generation::AiClient, type: :service do
       ])
     end
 
-    it "returns E204 on timeout" do
+    it "uses fallback model when primary times out" do
+      called_models = []
+      call_index = 0
+
+      allow(http).to receive(:request) do |request|
+        called_models << JSON.parse(request.body)["model"]
+        call_index += 1
+
+        raise Net::ReadTimeout if call_index == 1
+
+        success_response("Warhammer 40K: собери отряд. Реши через сортировка")
+      end
+
+      result = client.call
+
+      expect(result).to be_success
+      expect(called_models).to eq([
+        config.openrouter_primary_model,
+        config.openrouter_fallback_model
+      ])
+    end
+
+    it "returns E204 when both models time out" do
       allow(http).to receive(:request).and_raise(Net::ReadTimeout)
 
       result = client.call
 
       expect(result).not_to be_success
       expect(result.error_code).to eq("E204")
-      expect(http).to have_received(:request).once
+      expect(http).to have_received(:request).twice
     end
 
     it "returns E205 when API key is missing" do

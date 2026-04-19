@@ -7,7 +7,8 @@ RSpec.describe "GenerationRequests", type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("Генерация описания задачи")
-      expect(response.body).to include("Состояние: EMPTY")
+      expect(response.body).to include("Сгенерировать")
+      expect(response.body).not_to include("Состояние:")
     end
   end
 

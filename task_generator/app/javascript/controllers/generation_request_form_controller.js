@@ -9,13 +9,11 @@ export default class extends Controller {
     "skillInput",
     "topicInput",
     "submitButton",
-    "stateLabel",
     "errorMessage",
     "retryButton"
   ]
 
   static values = {
-    stateLabels: Object,
     errorMessages: Object,
     loadingText: String
   }
@@ -146,7 +144,6 @@ export default class extends Controller {
 
   setState(nextState) {
     this.state = nextState
-    this.stateLabelTarget.textContent = this.stateLabelsValue[nextState] || nextState
 
     if (nextState === "LOADING") {
       this.submitButtonTarget.disabled = true

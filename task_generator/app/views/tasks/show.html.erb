@@ -6,5 +6,32 @@
   <% else %>
     <h1><%= t("tasks.show.title") %></h1>
     <p class="description-text"><%= @task.description %></p>
+
+    <% if flash[:notice].present? %>
+      <p class="form-notice" role="status"><%= flash[:notice] %></p>
+    <% end %>
+
+    <% if flash[:alert].present? %>
+      <p class="form-alert" role="alert"><%= flash[:alert] %></p>
+    <% end %>
+
+    <%= form_with model: @task, url: update_task_path(@task), method: :patch, local: true do |form| %>
+      <div class="solution-code-block">
+        <%= form.label :solution_code, t("tasks.show.solution_code_label"), class: "solution-code-label" %>
+        <p class="solution-code-hint"><%= t("tasks.show.solution_code_hint") %></p>
+        <%= form.text_area(
+          :solution_code,
+          class: "solution-code-input",
+          rows: 12,
+          spellcheck: false,
+          autocomplete: "off",
+          autocapitalize: "off"
+        ) %>
+      </div>
+
+      <div class="button-row">
+        <%= form.button t("tasks.show.solution_code_save"), type: :submit, class: "submit-button" %>
+      </div>
+    <% end %>
   <% end %>
 </div>

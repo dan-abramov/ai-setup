@@ -124,25 +124,47 @@ body {
   border: 1px solid #bdd9ff;
 }
 
-.result-panel {
-  margin-top: 1.4rem;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid #d4e5ff;
-  background: #f7fbff;
-}
-
-.state-badge {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #1f4b84;
-}
-
 .description-text {
   margin-top: 0.75rem;
   margin-bottom: 0;
   line-height: 1.5;
+}
+
+.solution-code-block {
+  margin-top: 1.4rem;
+}
+
+.solution-code-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.solution-code-hint {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  color: var(--text-muted);
+}
+
+.solution-code-input {
+  width: 100%;
+  min-height: 220px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid #b8cfe9;
+  background: #f8fbff;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text-main);
+  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", monospace;
+  resize: vertical;
+}
+
+.solution-code-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(11, 110, 247, 0.14);
 }
 
 .error-text,
@@ -154,6 +176,16 @@ body {
   border: 1px solid #f5b8b8;
   background: var(--danger-soft);
   color: var(--danger);
+}
+
+.form-notice {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #a8d7b0;
+  background: #e9f9ee;
+  color: #1a6d35;
 }
 
 .hidden {
@@ -168,5 +200,9 @@ body {
 
   .generation-page h1 {
     font-size: 1.55rem;
+  }
+
+  .solution-code-input {
+    min-height: 180px;
   }
 }
