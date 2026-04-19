@@ -178,6 +178,16 @@ body {
   color: var(--danger);
 }
 
+.form-notice {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #a8d7b0;
+  background: #e9f9ee;
+  color: #1a6d35;
+}
+
 .hidden {
   display: none !important;
 }

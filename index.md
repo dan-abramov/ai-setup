@@ -38,7 +38,7 @@
 | [memory-bank/engineering/coding-style.md](memory-bank/engineering/coding-style.md)             | Конвенции кода Rails + services                            | Держать стиль изменений единообразным               |
 | [memory-bank/ops/config.md](memory-bank/ops/config.md)                                         | Runtime/env contracts                                      | Менять или проверять конфигурацию OPENROUTER/RAILS  |
 | [memory-bank/flows/feature-flow.md](memory-bank/flows/feature-flow.md)                         | Lifecycle фич и ID taxonomy (`REQ-*`, `CHK-*`, `EVID-*`)   | Вести фичу по стадиям от draft до done              |
-| [memory-bank/features/README.md](memory-bank/features/README.md)                               | Реестр feature packages                                    | Найти текущие фичи FT-001..FT-003, FT-010, FT-011   |
+| [memory-bank/features/README.md](memory-bank/features/README.md)                               | Реестр feature packages                                    | Найти текущие фичи FT-001..FT-003, FT-010..FT-012   |
 
 
 ## Feature Packages
@@ -51,6 +51,7 @@
 | [memory-bank/features/FT-003/feature.md](memory-bank/features/FT-003/feature.md) | Создание `Task` и reopen через `/task/:id`         | Менять reopen flow и ошибки `E301-E303`    |
 | [memory-bank/features/FT-010/feature.md](memory-bank/features/FT-010/feature.md) | Удаление визуального статуса generation request     | Менять UI-контракт формы без изменения API |
 | [memory-bank/features/FT-011/feature.md](memory-bank/features/FT-011/feature.md) | Поле ввода кода-решения на странице задачи          | Менять UI шага решения без backend-проверки |
+| [memory-bank/features/FT-012/feature.md](memory-bank/features/FT-012/feature.md) | Сохранение введенного `solution_code` на `/task/:id` | Добавлять persistence шага решения без проверки кода |
 
 
 ## Code Map (`task_generator/`)

@@ -42,7 +42,10 @@ ru:
     show:
       title: "Сгенерированная задача"
       solution_code_label: "Код решения"
-      solution_code_hint: "Введённый код пока не проверяется и не сохраняется."
+      solution_code_hint: "Введённый код пока не проверяется, но сохраняется для этой задачи."
+      solution_code_save: "Сохранить код"
+      solution_code_saved: "Код решения сохранён."
+      solution_code_save_failed: "Не удалось сохранить код решения."
     errors:
       title: "Ошибка открытия задачи"
       back: "Вернуться к форме"

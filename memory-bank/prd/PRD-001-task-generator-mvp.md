@@ -85,3 +85,4 @@ must_not_define:
 | `FT-003` | Создание `Task` и reopen-flow | done |
 | `FT-010` | Убрать визуальный статус generation request на пользовательских view | planned |
 | `FT-011` | Добавить input для ввода кода-решения на странице `/task/:id` | planned |
+| `FT-012` | Сохранять код-решение, введенный пользователем, на странице `/task/:id` | planned |
